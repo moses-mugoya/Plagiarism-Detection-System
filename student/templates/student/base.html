@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+    {% load static %}
+    {% load i18n %}
+    <link rel="stylesheet" type="text/css" href="{% static 'student/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'student/style.css' %}">
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Plagiarism</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="{% url 'student:upload' %}">Upload Work</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'account:dashboard' %}">My dashboard</a></li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if request.user.is_authenticated %}
+            <li><a> Hello {{request.user.username}}</a></li>
+            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-sign-out"></span> Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'account:register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    {% block body %}
+
+    {% endblock %}
+
+</div>
+
+<script src="{% static 'student/bootstrap/js/jquery.js' %}"></script>
+<script src="{% static 'student/bootstrap/js/bootstrap.js' %}"></script>
+
+</body>
+</html>

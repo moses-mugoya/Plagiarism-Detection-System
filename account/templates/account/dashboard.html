@@ -1,0 +1,40 @@
+{% extends 'student/base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    {% load i18n %}
+    <div class="col-md-12">
+        <h1>{% trans 'Dashboard' %}</h1>
+        <hr>
+        <p class="para">Welcome to your dashboard. You can <a href="{% url 'account:edit' %}">
+            edit your account</a> or <a href="{% url 'password_change' %}">change your password .</a>
+        </p>
+    </div>
+    {% if request.user.is_superuser %}
+    {% for student in students %}
+    <div class="panel panel-default col-md-3">
+        <a href="{{student.get_absolute_url}}">
+            <div class="panel-body img">
+                <img src="{% if student.image %}{{student.image.url}} {% else %} {% static 'student/img/profile.png' %}{% endif %} " class="img-responsive zoom">
+            </div>
+        </a>
+        <hr>
+        <div class="panel-header">
+            <h4 class="det"> {{student.user}}</h4>
+        </div>
+        <div class="panel-header">
+            <h5 class="det" id="price">{{student.reg_number}}</h5>
+        </div>
+        <div class="panel-header">
+            <a href="{{student.get_absolute_url}}" role="button" class="btn btn-success">Check for Plagiarism</a>
+        </div>
+    </div>
+    {% empty %}
+    <p>No student has registered yet</p>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

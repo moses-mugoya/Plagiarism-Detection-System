@@ -1,0 +1,16 @@
+{% extends 'student/base.html ' %}
+
+{% block title %} Upload Assignment {% endblock %}
+
+{% block body %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+<h1>Upload Assignment</h1>
+<hr>
+<form method="post" action="." enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ student_form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'student/base.html ' %}
+
+{% block title %} Check for Plagiarism {% endblock %}
+
+{% block body %}
+<h1>Check for plagiarism between {{student.user}} and the rest</h1>
+<hr>
+
+{% for list in my_list %}
+<p>{{list}}</p>
+{% endfor %}
+{% endblock %}
